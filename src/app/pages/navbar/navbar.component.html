@@ -1,0 +1,29 @@
+<nav class="navbar navbar-expand-lg nav-color nav-fixed">
+    <div class="container-fluid">
+      <div class="main-tag">
+        <h4 *ngIf="userLogged && type == 'user'" style="padding : 7;"><a class="nav-link active" aria-current="page" href="/">Shopping App</a></h4>
+        <h4 *ngIf="userLogged && type == 'admin'" style="padding : 7;"><a class="nav-link active" aria-current="page" href="/adminpage">Shopping App</a></h4>
+        <h4 *ngIf="userLogged == false" style="padding : 7;"><a class="nav-link active" aria-current="page" href="/login">Shopping App</a></h4>
+        <img class="nav-image" src = "../../../assets/shop.svg" />
+      </div>
+      
+      <div class="login-menu">
+        <div class="dropdown">
+          <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <img class="nav-image" src = "../../../assets/person-circle.svg" />
+          </button>
+          <ul *ngIf="userLogged == false" class="dropdown-menu">
+            <li><a class="dropdown-item" href="/login">User Login</a></li>
+            <li><a class="dropdown-item" href="/admin-login">Admin Login</a></li>
+          </ul>
+          <ul *ngIf="userLogged" class="dropdown-menu">
+            <li><a class="dropdown-item">Hi ,{{id}}</a></li>
+            <li *ngIf="userLogged && type == 'admin'"><a class="dropdown-item" href="/orderspage">View Orders</a></li>
+            <li><a class="dropdown-item" (click)="clickedLogout()">Logout</a></li>
+            
+          </ul>
+        </div>
+        
+      </div>
+    </div>
+  </nav>

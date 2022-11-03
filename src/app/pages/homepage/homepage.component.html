@@ -1,0 +1,29 @@
+
+<div class="container homepage">
+    <div class="banner">
+        <h2> Welcome , lets get you shopping !</h2>
+        <form class="d-flex" role="search" class="search-bar">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="search" (keyup)="onKey($event)">
+            <button class="btn btn-outline-success" type="submit" (click) = "searchClick($event)">Search</button>
+        </form>
+    </div>
+    <div class="row banner">
+        <div *ngIf="products.length == 0">
+            <h3>No products to display</h3>
+        </div>
+    </div>
+    <div class="row">
+        <ng-container *ngFor="let item of products">
+            <div class="card col-md-3">
+                <button *ngIf="item.productStatus == 'Hurry up to purchase' && item.quantity > 0" class="btn product-status">{{item.productStatus}}</button>
+                <button *ngIf="item.productStatus == 'Out of Stock' || item.quantity == 0" class="btn btn btn-danger danger-status">{{item.productStatus}}</button>
+                <img class="card-image" src="../../../assets/shopping.jpg" alt="">
+                <h5 style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;max-width: 100ch;"><b>{{item.productName}}</b></h5>
+                <h6 style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;max-width: 100ch;">{{item.productDescription}}</h6>
+                <p style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;max-width: 100ch;">{{item.features}}</p>
+                <p><strong>Price:</strong> Rs {{item.price}}</p>
+                <button *ngIf="item.productStatus == 'Hurry up to purchase' && item.quantity > 0" type="button" class="btn btn-outline-danger" (click)="placeOrder(item)">Place Order</button>
+            </div>
+        </ng-container>
+
+    </div>

@@ -1,0 +1,119 @@
+
+<div class="container homepage">
+    <div class="banner">
+        <h2> Welcome , back Admin !</h2>
+        <form class="d-flex" role="search" class="search-bar">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="search" (keyup)="onKey($event)">
+            <button class="btn btn-outline-success" type="submit" (click) = "searchClick($event)">Search</button>
+        </form>
+        <div class="add-product-button">
+            <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#exampleModal1">Add Product</button>
+        </div>
+    </div>
+    <div class="row banner">
+        <div *ngIf="products.length == 0">
+            <h3>No products to display</h3>
+        </div>
+    </div>
+    <div class="row">
+        <ng-container *ngFor="let item of products; let indexofelement = index">
+            <div class="card col-md-3">
+                <img class="card-image" src="../../../assets/shopping.jpg" alt="">
+                <h5 style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;max-width: 100ch;"><b>{{item.productName}} ({{item.quantity}} Units Left)</b></h5>
+                <h6 style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;max-width: 100ch;">{{item.productDescription}}</h6>
+                <p style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;max-width: 100ch;">{{item.features}}</p>
+                
+                <p><strong>Price:</strong> Rs {{item.price}}</p>
+                <div class="button-group">
+                    <div>
+                    </div>
+                    <div>
+                        <button class="button-group-buttons"><img src="../../../assets/pencil-fill.svg" class="button-group-image" data-bs-toggle="modal" data-bs-target="#exampleModal" (click) = "editButtonClicked(item)"/></button>
+                        <button class="button-group-buttons" (click)="deleteProduct($event,item.productName,indexofelement)"><img src="../../../assets/trash-fill.svg" class="button-group-image" /></button>
+                    </div>
+                </div>
+                <div *ngIf="item.productStatus === 'Out of Stock'">
+                    <button class="btn btn-primary product-status-danger">{{item.productStatus}}</button>
+                </div>
+                <div *ngIf="item.productStatus === 'Hurry up to purchase'">
+                    <button class="btn btn-primary product-status">{{item.productStatus}}</button>
+                </div>
+            </div>
+        </ng-container>
+
+    </div>
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">Change Status</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <h4>{{selectedProduct.productName}}</h4>
+
+              <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Select Status
+                </button>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" id="Out of Stock" (click)="dropdownOptionSelected($event)">Out of Stock</a></li>
+                  <li><a class="dropdown-item" id="Hurry up to purchase" (click)="dropdownOptionSelected($event)">Hurry up to purchase</a></li>
+                </ul>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">Add Product</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="input-group">
+                    <span class="input-group-text">Name</span>
+                    <input type="text" aria-label="First name" class="form-control" id="modal-product-name" (keyup)="onKey($event)">
+                </div>
+                <div class="input-group">
+                    <span class="input-group-text">Description</span>
+                    <input type="text" aria-label="First name" class="form-control" id="modal-product-description" (keyup)="onKey($event)">
+                </div>
+                <div class="input-group">
+                    <span class="input-group-text">Features</span>
+                    <input type="text" aria-label="First name" class="form-control" id="modal-product-features" (keyup)="onKey($event)">
+                </div>
+                <div class="input-group">
+                    <span class="input-group-text">Quantity</span>
+                    <input type="text" aria-label="First name" class="form-control" id="modal-product-quantity" (keyup)="onKey($event)">
+                </div>
+                <div class="input-group">
+                    <span class="input-group-text">Price</span>
+                    <input type="text" aria-label="First name" class="form-control" id="modal-product-price" (keyup)="onKey($event)">
+                </div>
+                <div class="input-group">
+                    <span class="input-group-text">Status</span>
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          Select Status
+                        </button>
+                        <ul class="dropdown-menu">
+                          <li><a class="dropdown-item" id="Out of Stock" (click)="onKey($event)">Out of Stock</a></li>
+                          <li><a class="dropdown-item" id="Hurry up to purchase" (click)="onKey($event)">Hurry up to purchase</a></li>
+                        </ul>
+                      </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary" (click)="addProduct()">Add</button>
+            </div>
+          </div>
+        </div>
+      </div>

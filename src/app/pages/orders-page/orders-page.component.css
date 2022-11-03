@@ -1,0 +1,20 @@
+.orderspage{
+    margin-top: 16vh;
+    text-align: center;
+}
+
+.main-orders{
+    margin-top: 2vh;
+}
+
+.bomb-color{
+    background-color: #7449ca;
+    color: #fff;
+}
+
+.tab-row :hover{
+    transition: 0.3s ease-in-out !important;
+    transform: scale(1.1) !important;
+    background-color: #a397b9;
+    color: white;
+}

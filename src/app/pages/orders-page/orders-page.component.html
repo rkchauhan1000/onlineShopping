@@ -1,0 +1,21 @@
+<div class="orderspage">
+    <h3>Orders </h3>
+    <table class="table main-orders">
+        <thead class="table-dark">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">User</th>
+            <th scope="col">Product ( Price )</th>
+            <th scope="col">Date</th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let order of orders;let i = index">
+          <tr class="table-primary tab-row">
+            <th scope="row">{{i + 1}}</th>
+            <td><strong>{{order.loginId}}</strong></td>
+            <td><strong>{{order.product.productName}}</strong> (Rs {{order.product.price}})</td>
+            <td><strong>{{getDate(order.timeStamp)}}</strong></td>
+          </tr>
+        </tbody>
+      </table>
+</div>
